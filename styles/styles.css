@@ -1,0 +1,43 @@
+html,
+body {
+    margin: 0;
+    height: 100%;
+}
+body {
+    display: flex; 
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: green;
+    margin: 0;
+    padding: 1rem;
+}
+
+.header-text {
+    font-size: 2rem;
+}
+
+main {
+    display: flex;
+    height: 20rem;
+    flex: 1 1 auto;
+
+}
+
+.main-column {
+    display: flex;
+    background-color: brown;
+    flex: 1 1 auto;
+    border: 1px solid black;
+}
+footer {
+    margin-top: auto;
+    display: flex;
+    background-color: green;
+    justify-content: center;
+    align-items: center;
+}
