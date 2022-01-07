@@ -30,9 +30,11 @@ main {
 
 .main-column {
     display: flex;
-    background-color: brown;
+    background-image: url("../imgs/woodimg3.jpeg");
+    background-size: 100%;
+    /* background-repeat: no-repeat; */
     flex: 1 1 auto;
-    border: 1px solid black;
+    border: 4px solid black;
 }
 footer {
     margin-top: auto;
