@@ -16,10 +16,39 @@ body {
     margin: 0;
     padding: 1rem;
 }
+.button-wrapper {
+    display: flex;
+    margin-left: auto;
+    border: 2px solid black;
+    height: 37px;
+    width: 37px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: green;
+    padding: 0;
+}
+
+.button-wrapper:hover {
+    background-color: darkgreen;
+}
+
+.button-wrapper:active {
+    background-color: rgb(0, 68, 0);
+}
+
+.add-btn {
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 2.5px;
+}
 
 .header-text {
     font-size: 2rem;
+    position: absolute;
 }
+
+
 
 main {
     display: flex;
@@ -42,4 +71,5 @@ footer {
     background-color: green;
     justify-content: center;
     align-items: center;
+    padding: .75rem;
 }
