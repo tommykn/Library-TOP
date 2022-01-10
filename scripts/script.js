@@ -142,3 +142,17 @@ submitBtn.addEventListener('click', () => {
 });
 
 pushLocalStorageToLibrary();
+displayArray();
+
+
+const bookReadBtns = document.querySelectorAll('.read-status');
+
+bookReadBtns.forEach((button) => {
+    button.addEventListener('click', (e) => {
+        if (e.target.textContent === 'Read') {
+            e.target.textContent = 'Not Read';
+        } else {
+            e.target.textContent = 'Read';
+        }
+    });
+});
