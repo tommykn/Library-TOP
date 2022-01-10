@@ -82,6 +82,7 @@ footer {
     gap: 3rem;
     background-color: palegoldenrod;
     padding: 2rem;
+    flex: 1 1 auto;
 
 
 }
