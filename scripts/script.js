@@ -12,6 +12,7 @@ function Book(title, author, pagenum, hasRead) {
     this.pagenum = pagenum;
     this.hasRead = hasRead;
 }
+
 function addBookToLibrary() {
     let title = prompt("what it the books title")
     let author = prompt("what is the author");
@@ -82,10 +83,31 @@ function addBookCard(title, author, pagenum, hasRead) {
     // console.log(mainColunm);
 
     mainColunm.appendChild(book);
+}
+
+// modal
+
+const modal = document.getElementById("myModal");
+const btn = document.querySelector('.modalBtn');
+const span = document.getElementsByClassName('close')[0];
+
+btn.addEventListener('click', () => {
+    modal.style.display = 'block';
+});
+
+span.addEventListener('click', () => {
+    modal.style.display = 'none';
+});
 
 
+window.addEventListener('click', (e) => {
+    if (e.target == modal) {
+        modal.style.display = 'none';
+    }
+})
 
-
-
+function newBook() {
 
 }
+
+
