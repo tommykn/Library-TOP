@@ -52,7 +52,7 @@ body {
 
 main {
     display: flex;
-    height: 20rem;
+    height: auto;
     flex: 1 1 auto;
 
 }
@@ -62,7 +62,7 @@ main {
     background-image: url("../imgs/woodimg3.jpeg");
     background-size: 100%;
     /* background-repeat: no-repeat; */
-    flex: 1 1;
+    flex: 1;
     border: 4px solid black;
     align-items: center;
     flex-direction: column;
@@ -79,10 +79,16 @@ footer {
 .book {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
     background-color: palegoldenrod;
     padding: 2rem;
-    flex: 1 1 auto;
+    height: 7rem;
+    width: 7rem;
+    justify-content: center;
+    align-items: center;
+    gap: .4rem;
+    margin-top: 1rem;
+    border: 2px solid brown;
+    border-radius: 2rem;
 
 
 }

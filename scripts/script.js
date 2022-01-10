@@ -71,12 +71,27 @@ function addBookCard(title, author, pagenum, hasRead) {
     book.appendChild(readDom);
     book.appendChild(bottomWrapper);
 
-    const mainColunm = document.querySelector('.main-column');
+    const mainColunmOne = document.querySelector('.one');
+    const mainColunmTwo = document.querySelector('.two');
+    const mainColunmThree = document.querySelector('.three');
+    let oneContent = mainColunmOne.dataset.content;
+    let twoContent = mainColunmTwo.dataset.content;
+    let threeContent = mainColunmThree.dataset.content;
+    if (oneContent === twoContent && oneContent === threeContent) {
+        mainColunmOne.appendChild(book);
+        let oneCount = Number(oneContent) + 1;
+        mainColunmOne.dataset.content = `${oneCount}`;
+    } else if (oneContent > twoContent) {
+        mainColunmTwo.appendChild(book);
+        let twoCount = Number(twoContent) + 1;
+        mainColunmTwo.dataset.content = `${twoCount}`;
+    } else {
+        mainColunmThree.appendChild(book);
+        let threeCount = Number(threeContent) + 1;
+        mainColunmThree.dataset.content = `${threeCount}`;
+    }
 
-    // console.log(book);
-    // console.log(mainColunm);
 
-    mainColunm.appendChild(book);
 }
 
 // modal
