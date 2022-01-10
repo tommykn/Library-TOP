@@ -1,23 +1,20 @@
-let myLibrary = [
-    {
-        title: "Something", author: "hfase", pagenum: "1231", hasRead: 'Not Read'
-    },
-
-];
+let myLibrary = [];
 
 
-function Book(title, author, pagenum, hasRead) {
+function Book(title, author, pagenum, hasRead, localIndex) {
     this.title = title;
     this.author = author;
     this.pagenum = pagenum;
     this.hasRead = hasRead;
+    this.localIndex = localIndex;
 }
 
 
 
 function pushLocalStorageToLibrary() {
     for (let i = 0; i < localStorage.length; i++) {
-        const book = JSON.parse(localStorage.getItem(`${i}`));
+        console.log()
+        const book = JSON.parse(localStorage.getItem(`${localStorage.key(i)}`));
         myLibrary.push(book);
     }
 }
@@ -29,14 +26,16 @@ function displayArray() {
         const author = myLibrary[i].author;
         const pagenum = myLibrary[i].pagenum;
         const hasRead = myLibrary[i].hasRead;
-        addBookCard(title, author, pagenum, hasRead);
+        const localIndex = myLibrary[i].localIndex;
+        const index = i;
+        addBookCard(title, author, pagenum, hasRead, index, localIndex);
 
     }
 
 
 }
 
-function addBookCard(title, author, pagenum, hasRead) {
+function addBookCard(title, author, pagenum, hasRead, index, localIndex) {
     const book = document.createElement('div');
     const titleDom = document.createElement('div');
     const authorDom = document.createElement('div');
@@ -54,10 +53,12 @@ function addBookCard(title, author, pagenum, hasRead) {
     bottomWrapper.classList.add('bottom-wrapper');
     editBtn.classList.add('edit-btn');
     deleteBtn.classList.add('delete-btn');
+    deleteBtn.setAttribute('data-index', `${index}`);
+    deleteBtn.setAttribute('data-localIndex', `${localIndex}`)
 
-    titleDom.textContent = `Tiltle: ${title}`;
+    titleDom.textContent = `Title: ${title}`;
     authorDom.textContent = `Author: ${author}`;
-    pagesDom.textContent = `Pages; ${pagenum}`;
+    pagesDom.textContent = `Pages: ${pagenum}`;
     readDom.textContent = `${hasRead}`;
 
     editBtn.textContent = 'edit';
@@ -128,8 +129,9 @@ function getBookFromUser() {
     const author = document.getElementById('author').value;
     const pagenum = document.getElementById('pages').value;
     const hasRead = document.getElementById('has-read').value;
+    const localIndex = `${localStorage.length}`;
 
-    const newBook = new Book(title, author, pagenum, hasRead);
+    const newBook = new Book(title, author, pagenum, hasRead, localIndex);
     const newBookString = JSON.stringify(newBook);
     localStorage.setItem(`${localStorage.length}`, newBookString);
 }
@@ -154,5 +156,19 @@ bookReadBtns.forEach((button) => {
         } else {
             e.target.textContent = 'Read';
         }
+    });
+});
+
+const deleteButtons = document.querySelectorAll('.delete-btn');
+
+deleteButtons.forEach((button) => {
+    button.addEventListener('click', (e) => {
+        let index = e.target.dataset.index;
+        myLibrary.splice(index, 1);
+        localStorage.removeItem(`${e.target.dataset.localindex}`);
+        location.reload();
+
+
+
     });
 });
