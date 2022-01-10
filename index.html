@@ -18,9 +18,30 @@
     <main>
         <div id="myModal" class="modal">
             <div class="modal-content">
-                <span class="close">&times;</span>
-                <div>asdfasdfas</div>
-                <div>afdafa</div>
+                <form class="bookForm">
+                    <h2>Add a New Book</h2>
+                    <div>
+                        <label for="title">Title;</label>
+                        <input id="title" name="name" type="text" required>
+                    </div>
+                    <div>
+                        <label for="author">Author;</label>
+                        <input id="author" name="author" type="text" required>
+                    </div>
+                    <div>
+                        <label for="pages">Pages;</label>
+                        <input id="pages" name="pages" type="number" min="1" required>
+                    </div>
+                    <div>
+                        <input id ="has-read" type="button" class="read" value="Read">
+                    </div>
+                    <div>
+                        <button id="submitBtn" type="submit">Submit</button>
+                    </div>
+                    
+                    
+
+                </form>
             </div>
 
         </div>

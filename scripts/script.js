@@ -13,19 +13,13 @@ function Book(title, author, pagenum, hasRead) {
     this.hasRead = hasRead;
 }
 
-function addBookToLibrary() {
-    let title = prompt("what it the books title")
-    let author = prompt("what is the author");
-    let hasRead =  confirm('Have you read it yet');
-    let pages = prompt("how many pages is it");
-    console.log(typeof(Number(pages)));
-    if (isNaN(pages) === true) {
-        pages = prompt("please enter a number greater than 0");
+
+
+function pushLocalStorageToLibrary() {
+    for (let i = 0; i < localStorage.length; i++) {
+        const book = JSON.parse(localStorage.getItem(`${i}`));
+        myLibrary.push(book);
     }
-    const newBook = new Book(title, author, pages, hasRead);
-
-    myLibrary.push(newBook);
-
 }
 
 
@@ -95,19 +89,41 @@ btn.addEventListener('click', () => {
     modal.style.display = 'block';
 });
 
-span.addEventListener('click', () => {
-    modal.style.display = 'none';
-});
 
 
 window.addEventListener('click', (e) => {
     if (e.target == modal) {
         modal.style.display = 'none';
     }
-})
+});
 
-function newBook() {
 
+const formReadBtn = document.getElementById("has-read");
+
+formReadBtn.addEventListener('click', (e) => {
+    if (e.target.value === 'Read') {
+        e.target.value = 'Not Read';
+    } else if (e.target.value === 'Not Read') {
+        e.target.value = 'Read';
+    }
+});
+
+function getBookFromUser() {
+    const title = document.getElementById('title').value;
+    const author = document.getElementById('author').value;
+    const pagenum = document.getElementById('pages').value;
+    const hasRead = document.getElementById('has-read').value;
+
+    const newBook = new Book(title, author, pagenum, hasRead);
+    const newBookString = JSON.stringify(newBook);
+    localStorage.setItem(`${localStorage.length}`, newBookString);
 }
 
+const submitBtn = document.getElementById('submitBtn');
 
+
+submitBtn.addEventListener('click', () => {
+    getBookFromUser();
+});
+
+pushLocalStorageToLibrary();
