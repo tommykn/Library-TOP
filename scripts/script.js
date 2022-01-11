@@ -21,12 +21,20 @@ function pushLocalStorageToLibrary() {
 
 
 function displayArray() {
-    for (let i = 0; i < myLibrary.length; i++) {
-        const title = myLibrary[i].title;
-        const author = myLibrary[i].author;
-        const pagenum = myLibrary[i].pagenum;
-        const hasRead = myLibrary[i].hasRead;
-        const localIndex = myLibrary[i].localIndex;
+    let orderedLibrary = myLibrary.sort(function(a, b) {
+        if (a.localIndex > b.localIndex) {
+            return 1;
+        } else {
+            return -1;
+        }
+    });
+
+    for (let i = 0; i < orderedLibrary.length; i++) {
+        const title = orderedLibrary[i].title;
+        const author = orderedLibrary[i].author;
+        const pagenum = orderedLibrary[i].pagenum;
+        const hasRead = orderedLibrary[i].hasRead;
+        const localIndex = orderedLibrary[i].localIndex;
         const index = i;
         addBookCard(title, author, pagenum, hasRead, index, localIndex);
 
@@ -54,7 +62,8 @@ function addBookCard(title, author, pagenum, hasRead, index, localIndex) {
     editBtn.classList.add('edit-btn');
     deleteBtn.classList.add('delete-btn');
     deleteBtn.setAttribute('data-index', `${index}`);
-    deleteBtn.setAttribute('data-localIndex', `${localIndex}`)
+    deleteBtn.setAttribute('data-localIndex', `${title}`)
+    readDom.setAttribute('onclick', 'onclick="this.blur();"');
 
     titleDom.textContent = `Title: ${title}`;
     authorDom.textContent = `Author: ${author}`;
@@ -129,11 +138,15 @@ function getBookFromUser() {
     const author = document.getElementById('author').value;
     const pagenum = document.getElementById('pages').value;
     const hasRead = document.getElementById('has-read').value;
-    const localIndex = `${localStorage.length}`;
+    let total = 0;
+    for (let i = 0; i < myLibrary.length; i++) {
+        total += myLibrary[i].localIndex;
+    }
+    let localIndex = total + 1;
 
     const newBook = new Book(title, author, pagenum, hasRead, localIndex);
     const newBookString = JSON.stringify(newBook);
-    localStorage.setItem(`${localStorage.length}`, newBookString);
+    localStorage.setItem(`${title}`, newBookString);
 }
 
 const submitBtn = document.getElementById('submitBtn');
