@@ -50,7 +50,6 @@ function addBookCard(title, author, pagenum, hasRead, index, localIndex) {
     const pagesDom = document.createElement('div');
     const readDom = document.createElement('button');
     const bottomWrapper = document.createElement('div');
-    const editBtn = document.createElement('button');
     const deleteBtn = document.createElement('button');
 
     book.classList.add('book');
@@ -59,7 +58,6 @@ function addBookCard(title, author, pagenum, hasRead, index, localIndex) {
     pagesDom.classList.add('pages');
     readDom.classList.add('read-status');
     bottomWrapper.classList.add('bottom-wrapper');
-    editBtn.classList.add('edit-btn');
     deleteBtn.classList.add('delete-btn');
     deleteBtn.setAttribute('data-index', `${index}`);
     deleteBtn.setAttribute('data-localIndex', `${title}`)
@@ -70,10 +68,8 @@ function addBookCard(title, author, pagenum, hasRead, index, localIndex) {
     pagesDom.textContent = `Pages: ${pagenum}`;
     readDom.textContent = `${hasRead}`;
 
-    editBtn.textContent = 'edit';
     deleteBtn.textContent = 'delete';
 
-    bottomWrapper.appendChild(editBtn);
     bottomWrapper.appendChild(deleteBtn);
     book.appendChild(titleDom);
     book.appendChild(authorDom);
