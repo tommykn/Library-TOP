@@ -139,10 +139,27 @@ function getBookFromUser() {
     const pagenum = document.getElementById('pages').value;
     const hasRead = document.getElementById('has-read').value;
     let total = 0;
-    for (let i = 0; i < myLibrary.length; i++) {
-        total += myLibrary[i].localIndex;
+    let localIndex = 0;
+    let orderedLibrary = myLibrary.sort(function(a, b) {
+        if (a.localIndex > b.localIndex) {
+            return 1;
+        } else {
+            return -1;
+        }
+    });
+    for (let i = 0; i < orderedLibrary.length; i++) {
+        const bk = localStorage.getItem(`${orderedLibrary[i].title}`)
+        const bkDestring = JSON.parse(bk);
+        bkDestring.localIndex = i;
+        const bkBackToString = JSON.stringify(bkDestring);
+        localStorage.setItem(`${orderedLibrary[i].title}`, bkBackToString);
+        total += i;
     }
-    let localIndex = total + 1;
+    if (orderedLibrary.length === 0) {
+        localIndex = 0;
+    } else {
+        localIndex = total + 1;
+    }
 
     const newBook = new Book(title, author, pagenum, hasRead, localIndex);
     const newBookString = JSON.stringify(newBook);
