@@ -51,16 +51,18 @@ function addBookCard(title, author, pagenum, hasRead, index, localIndex) {
     const readDom = document.createElement('button');
     const bottomWrapper = document.createElement('div');
     const deleteBtn = document.createElement('button');
+    let titleKey = title.split(' ').join('');
 
     book.classList.add('book');
     titleDom.classList.add('title');
     authorDom.classList.add('author');
     pagesDom.classList.add('pages');
     readDom.classList.add('read-status');
+    readDom.classList.add(`${titleKey}`);
     bottomWrapper.classList.add('bottom-wrapper');
     deleteBtn.classList.add('delete-btn');
     deleteBtn.setAttribute('data-index', `${index}`);
-    deleteBtn.setAttribute('data-localIndex', `${title}`)
+    deleteBtn.setAttribute('data-localIndex', `${titleKey}`)
     readDom.setAttribute('onclick', 'onclick="this.blur();"');
 
     titleDom.textContent = `Title: ${title}`;
@@ -134,6 +136,7 @@ function getBookFromUser() {
     const author = document.getElementById('author').value;
     const pagenum = document.getElementById('pages').value;
     const hasRead = document.getElementById('has-read').value;
+    let titleKey = title.split(' ').join('');
     let total = 0;
     let localIndex = 0;
     let orderedLibrary = myLibrary.sort(function(a, b) {
@@ -144,11 +147,11 @@ function getBookFromUser() {
         }
     });
     for (let i = 0; i < orderedLibrary.length; i++) {
-        const bk = localStorage.getItem(`${orderedLibrary[i].title}`)
+        const bk = localStorage.getItem(`${orderedLibrary[i].title.split(' ').join('')}`)
         const bkDestring = JSON.parse(bk);
         bkDestring.localIndex = i;
         const bkBackToString = JSON.stringify(bkDestring);
-        localStorage.setItem(`${orderedLibrary[i].title}`, bkBackToString);
+        localStorage.setItem(`${orderedLibrary[i].title.split(' ').join('')}`, bkBackToString);
         total += i;
     }
     if (orderedLibrary.length === 0) {
@@ -159,7 +162,7 @@ function getBookFromUser() {
 
     const newBook = new Book(title, author, pagenum, hasRead, localIndex);
     const newBookString = JSON.stringify(newBook);
-    localStorage.setItem(`${title}`, newBookString);
+    localStorage.setItem(`${titleKey}`, newBookString);
 }
 
 const submitBtn = document.getElementById('submitBtn');
@@ -177,11 +180,20 @@ const bookReadBtns = document.querySelectorAll('.read-status');
 
 bookReadBtns.forEach((button) => {
     button.addEventListener('click', (e) => {
-        if (e.target.textContent === 'Read') {
-            e.target.textContent = 'Not Read';
+        let btnTitle = e.target.classList[1];
+        let titleKey = btnTitle.split(' ').join('');
+        const bk = localStorage.getItem(`${titleKey}`)
+        const bkDestring = JSON.parse(bk);
+        if (bkDestring.hasRead === 'Read') {
+            bkDestring.hasRead = 'Not Read';
         } else {
-            e.target.textContent = 'Read';
+            bkDestring.hasRead = 'Read';
         }
+        const bkBackToString = JSON.stringify(bkDestring);
+        localStorage.setItem(`${titleKey}`, bkBackToString);
+        location.reload();
+
+
     });
 });
 
