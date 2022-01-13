@@ -1,5 +1,7 @@
 let myLibrary = [];
 
+const form = document.querySelector('.bookForm');
+
 
 function Book(title, author, pagenum, hasRead, localIndex) {
     this.title = title;
@@ -12,15 +14,27 @@ function Book(title, author, pagenum, hasRead, localIndex) {
 
 
 function pushLocalStorageToLibrary() {
+    myLibrary = [];
     for (let i = 0; i < localStorage.length; i++) {
-        console.log()
         const book = JSON.parse(localStorage.getItem(`${localStorage.key(i)}`));
         myLibrary.push(book);
     }
 }
 
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
+
 
 function displayArray() {
+    const mainColunmOne = document.querySelector('.one');
+    const mainColunmTwo = document.querySelector('.two');
+    const mainColunmThree = document.querySelector('.three');
+    removeAllChildNodes(mainColunmOne);
+    removeAllChildNodes(mainColunmTwo);
+    removeAllChildNodes(mainColunmThree);
     let orderedLibrary = myLibrary.sort(function(a, b) {
         if (a.localIndex > b.localIndex) {
             return 1;
@@ -65,12 +79,37 @@ function addBookCard(title, author, pagenum, hasRead, index, localIndex) {
     deleteBtn.setAttribute('data-localIndex', `${titleKey}`)
     readDom.setAttribute('onclick', 'onclick="this.blur();"');
 
+    deleteBtn.addEventListener('click', (e) => {
+        let index = e.target.dataset.index;
+        myLibrary.splice(index, 1);
+        localStorage.removeItem(`${e.target.dataset.localindex}`);
+        pushLocalStorageToLibrary();
+        displayArray();
+    });
+
     titleDom.textContent = `Title: ${title}`;
     authorDom.textContent = `Author: ${author}`;
     pagesDom.textContent = `Pages: ${pagenum}`;
     readDom.textContent = `${hasRead}`;
 
     deleteBtn.textContent = 'delete';
+
+    readDom.addEventListener('click', (e) => {
+        let btnTitle = e.target.classList[1];
+        let titleKey = btnTitle.split(' ').join('');
+        const bk = localStorage.getItem(`${titleKey}`)
+        const bkDestring = JSON.parse(bk);
+        if (bkDestring.hasRead === 'Read') {
+            bkDestring.hasRead = 'Not Read';
+        } else {
+            bkDestring.hasRead = 'Read';
+        }
+        const bkBackToString = JSON.stringify(bkDestring);
+        localStorage.setItem(`${titleKey}`, bkBackToString);
+        pushLocalStorageToLibrary();
+        displayArray();
+    });
+
 
     bottomWrapper.appendChild(deleteBtn);
     book.appendChild(titleDom);
@@ -82,9 +121,9 @@ function addBookCard(title, author, pagenum, hasRead, index, localIndex) {
     const mainColunmOne = document.querySelector('.one');
     const mainColunmTwo = document.querySelector('.two');
     const mainColunmThree = document.querySelector('.three');
-    let oneContent = mainColunmOne.dataset.content;
-    let twoContent = mainColunmTwo.dataset.content;
-    let threeContent = mainColunmThree.dataset.content;
+    let oneContent = mainColunmOne.childElementCount;
+    let twoContent = mainColunmTwo.childElementCount;
+    let threeContent = mainColunmThree.childElementCount;
     if (oneContent === twoContent && oneContent === threeContent) {
         mainColunmOne.appendChild(book);
         let oneCount = Number(oneContent) + 1;
@@ -168,45 +207,55 @@ function getBookFromUser() {
 const submitBtn = document.getElementById('submitBtn');
 
 
-submitBtn.addEventListener('click', () => {
+submitBtn.addEventListener('click', (e) => {
+    if (document.getElementById('title').value.split(' ').join('') === '' || document.getElementById('author').value.split(' ').join('') === '' || document.getElementById('pages').value.split(' ').join('') === '') {
+        return;
+    }
+    e.preventDefault();
     getBookFromUser();
+    pushLocalStorageToLibrary();
+    displayArray();
+    form.reset();
+    modal.style.display = 'none';
 });
 
 pushLocalStorageToLibrary();
 displayArray();
 
 
-const bookReadBtns = document.querySelectorAll('.read-status');
+// const bookReadBtns = document.querySelectorAll('.read-status');
 
-bookReadBtns.forEach((button) => {
-    button.addEventListener('click', (e) => {
-        let btnTitle = e.target.classList[1];
-        let titleKey = btnTitle.split(' ').join('');
-        const bk = localStorage.getItem(`${titleKey}`)
-        const bkDestring = JSON.parse(bk);
-        if (bkDestring.hasRead === 'Read') {
-            bkDestring.hasRead = 'Not Read';
-        } else {
-            bkDestring.hasRead = 'Read';
-        }
-        const bkBackToString = JSON.stringify(bkDestring);
-        localStorage.setItem(`${titleKey}`, bkBackToString);
-        location.reload();
-
-
-    });
-});
-
-const deleteButtons = document.querySelectorAll('.delete-btn');
-
-deleteButtons.forEach((button) => {
-    button.addEventListener('click', (e) => {
-        let index = e.target.dataset.index;
-        myLibrary.splice(index, 1);
-        localStorage.removeItem(`${e.target.dataset.localindex}`);
-        location.reload();
+// bookReadBtns.forEach((button) => {
+//     button.addEventListener('click', (e) => {
+//         let btnTitle = e.target.classList[1];
+//         let titleKey = btnTitle.split(' ').join('');
+//         const bk = localStorage.getItem(`${titleKey}`)
+//         const bkDestring = JSON.parse(bk);
+//         if (bkDestring.hasRead === 'Read') {
+//             bkDestring.hasRead = 'Not Read';
+//         } else {
+//             bkDestring.hasRead = 'Read';
+//         }
+//         const bkBackToString = JSON.stringify(bkDestring);
+//         localStorage.setItem(`${titleKey}`, bkBackToString);
+//         pushLocalStorageToLibrary();
+//         displayArray();
 
 
+//     });
+// });
 
-    });
-});
+// const deleteButtons = document.querySelectorAll('.delete-btn');
+
+// deleteButtons.forEach((button) => {
+//     button.addEventListener('click', (e) => {
+//         let index = e.target.dataset.index;
+//         myLibrary.splice(index, 1);
+//         localStorage.removeItem(`${e.target.dataset.localindex}`);
+//         pushLocalStorageToLibrary();
+//         displayArray();
+
+
+
+//     });
+// });
