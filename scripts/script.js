@@ -92,7 +92,7 @@ function addBookCard(title, author, pagenum, hasRead, index, localIndex) {
     pagesDom.textContent = `Pages: ${pagenum}`;
     readDom.textContent = `${hasRead}`;
 
-    deleteBtn.textContent = 'delete';
+    deleteBtn.textContent = 'Delete';
 
     readDom.addEventListener('click', (e) => {
         let btnTitle = e.target.classList[1];
@@ -148,7 +148,7 @@ const btn = document.querySelector('.modalBtn');
 const span = document.getElementsByClassName('close')[0];
 
 btn.addEventListener('click', () => {
-    modal.style.display = 'block';
+    modal.style.display = 'flex';
 });
 
 

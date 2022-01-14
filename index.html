@@ -19,18 +19,20 @@
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <form class="bookForm">
-                    <h2>Add a New Book</h2>
-                    <div>
-                        <label for="title">Title:</label>
-                        <input id="title" name="name" type="text" required>
-                    </div>
-                    <div>
-                        <label for="author">Author:</label>
-                        <input id="author" name="author" type="text" required>
-                    </div>
-                    <div>
-                        <label for="pages">Pages:</label>
-                        <input id="pages" name="pages" type="number" min="1" required>
+                    <h2>New Book</h2>
+                    <div class="modalTextWrapper">
+                        <div class="modalTitle modalTextInput">
+                            <label for="title">Title:</label>
+                            <input id="title" name="name" type="text" required>
+                        </div>
+                        <div class="modalAuthor modalTextInput">
+                            <label for="author">Author:</label>
+                            <input id="author" name="author" type="text" required>
+                        </div>
+                        <div class="modalPages modalTextInput">
+                            <label for="pages">Pages:</label>
+                            <input id="pages" name="pages" type="number" min="1" required>
+                        </div>
                     </div>
                     <div>
                         <input onclick="this.blur();" id ="has-read" type="button" class="read" value="Read">
@@ -62,7 +64,7 @@
         </div>
     </main>
     <footer>
-        <div class="footer-content">@ Tommy</div>
+        <div class="footer-content">@tommykn</div>
     </footer>
     
 </body>

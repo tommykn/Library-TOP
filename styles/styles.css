@@ -73,21 +73,32 @@ footer {
     background-color: green;
     justify-content: center;
     align-items: center;
-    padding: .75rem;
+    padding: 1rem;
+}
+
+.read-status {
+    width: 5rem;
+}
+
+.delete-btn {
+    width: 5rem;
 }
 
 .book {
     display: flex;
+    flex-wrap: wrap;
+    font-size: 1.2rem;
+
     flex-direction: column;
-    background-color: palegoldenrod;
-    padding: 2rem;
-    height: 7rem;
-    width: 7rem;
+    background-color: rgb(247, 243, 199);
+    padding: 1rem;
+    height: 15rem;
+    width: 13rem;
     justify-content: center;
     align-items: center;
     gap: .4rem;
     margin-top: 1rem;
-    border: 2px solid brown;
+    border: 2px solid white;
     border-radius: 2rem;
 
 
@@ -106,15 +117,64 @@ footer {
     overflow: auto;
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
+    display: flex;
+    background-color: papayawhip;
+    border: 2px solid black;
+    border-radius: 1rem;
+    width: 20rem;
+    height: 15rem;
+    justify-content: center;
+    margin-bottom: 20rem;
+
+
 }
+input#has-read {
+    width: 6rem;
+}
+button#submitBtn{
+    width: 6rem;
+}
+.bookForm {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .2rem;
+    margin-bottom: 3rem;
+}
+.modalTextInput {
+    display: flex;
+    flex: 1 1 auto;
+
+}
+
+.modalTextWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+    flex: 1 1 auto;
+
+
+}
+input#title {
+    display: flex;
+    flex: 1 1 auto;
+}
+input#author {
+    display: flex;
+    flex: 1 1 auto;
+}
+input#pages {
+    display: flex;
+    flex: 1 1 auto;
+}
+
 
 .close {
     color: #aaa;
