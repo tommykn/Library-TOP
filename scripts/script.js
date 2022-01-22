@@ -3,12 +3,15 @@ let myLibrary = [];
 const form = document.querySelector('.bookForm');
 
 
-function Book(title, author, pagenum, hasRead, localIndex) {
-    this.title = title;
-    this.author = author;
-    this.pagenum = pagenum;
-    this.hasRead = hasRead;
-    this.localIndex = localIndex;
+class Book {
+    constructor(title, author, pagenum, hasRead, localIndex) {
+        this.title = title;
+        this.author = author;
+        this.pagenum = pagenum;
+        this.hasRead = hasRead;
+        this.localIndex = localIndex;
+
+    }
 }
 
 
@@ -223,39 +226,3 @@ pushLocalStorageToLibrary();
 displayArray();
 
 
-// const bookReadBtns = document.querySelectorAll('.read-status');
-
-// bookReadBtns.forEach((button) => {
-//     button.addEventListener('click', (e) => {
-//         let btnTitle = e.target.classList[1];
-//         let titleKey = btnTitle.split(' ').join('');
-//         const bk = localStorage.getItem(`${titleKey}`)
-//         const bkDestring = JSON.parse(bk);
-//         if (bkDestring.hasRead === 'Read') {
-//             bkDestring.hasRead = 'Not Read';
-//         } else {
-//             bkDestring.hasRead = 'Read';
-//         }
-//         const bkBackToString = JSON.stringify(bkDestring);
-//         localStorage.setItem(`${titleKey}`, bkBackToString);
-//         pushLocalStorageToLibrary();
-//         displayArray();
-
-
-//     });
-// });
-
-// const deleteButtons = document.querySelectorAll('.delete-btn');
-
-// deleteButtons.forEach((button) => {
-//     button.addEventListener('click', (e) => {
-//         let index = e.target.dataset.index;
-//         myLibrary.splice(index, 1);
-//         localStorage.removeItem(`${e.target.dataset.localindex}`);
-//         pushLocalStorageToLibrary();
-//         displayArray();
-
-
-
-//     });
-// });
